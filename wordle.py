@@ -60,7 +60,6 @@ while True:
     ingame= start_game()
     if ingame:
         word = generate_word()
-        print(word)
         for i in range(6):
             while True:
                 print("Input:", end="")
