@@ -30,6 +30,13 @@ def checkvalid(s):
     else:
         print("Not in word list. Try again")
         return False
+def checklength(s):
+    length= len(s)
+    if length != 5:
+        print("Invalid word length")
+    else:
+        return True
+
 
 def start_game():
     while True:
@@ -42,30 +49,37 @@ def start_game():
             else:
                 return False
 
+print("Instructions:")
+print("Guess the WORDLE in 6 tries.")
+print("Each guess must be a valid 5 letter word. Hit the enter button to submit.")
+print("After each guess, the character will change to show how close your guess was to the word.")
+print("Letter itself a - correct letter and position ")
+print("Letter with brackets (a)- correct letter, wrong position ")
+print("Hash tag # - wrong letter and position")
 while True:
-    print("Instructions:")
-    print("Guess the WORDLE in 6 tries.")
-    print("Each guess must be a valid 5 letter word. Hit the enter button to submit.")
-    print("After each guess, the character will change to show how close your guess was to the word.")
-    print("Letter itself a - correct letter and position ")
-    print("Letter with brackets (a)- correct letter, wrong position ")
-    print("Hash tag # - wrong letter and position")
-    start = start_game()
-    if start:
+    ingame= start_game()
+    if ingame:
         word = generate_word()
+        print(word)
         for i in range(6):
             while True:
                 print("Input:", end="")
                 user = input().lower()
                 if user == 'quit':
-                    start = False
+                    print("Thanks for Playing! Goodbye")
+                    exit()
+                count = checklength(user)
+                if count:
                     break
-                valid = checkvalid(user)
-                if valid:
-                    status = check(user, word)
-                    if status:
-                        print("Good Job Its correct")
-                        break
+            valid = checkvalid(user)
+            if valid:
+                status = check(user, word)
+                if status:
+                    print("Good Job! It's correct!")
+                    break
+            if i==5:
+                print("Nice Try, better luck next time")
+        print("The word is:"+word)
     else:
         print("Thanks for Playing! Goodbye")
         break
